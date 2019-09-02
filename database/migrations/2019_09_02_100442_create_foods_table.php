@@ -14,11 +14,13 @@ class CreateFoodsTable extends Migration
     public function up()
     {
         Schema::create('foods', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->timestamps();
             $table->string('name');
             $table->string('category');
-           $table->boolean('is_active_today')->default(0); 
+            $table->boolean('is_active_today')->default(0);
+            $table->integer('menu_id')->unsigned();
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade')->default(null);
         });
     }
 
