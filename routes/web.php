@@ -16,3 +16,6 @@ Route::resource('food', 'FoodController');
 Route::get('/', function () {
     return redirect()->route('food.index');
 });
+
+
+Route::resource('menu', 'MenuController');
