@@ -6,6 +6,10 @@
 {{ Form::text('category', null, ['class' => 'form-control form-control-lg', 'placeholder' => 'Category Name'])}}
 
 
+{{ Form::label('is_active_today', 'Available Today', ['class' => 'control-label']) }}
+{{ Form::checkbox('is_active_today', 'value', true) }}
+
+
 <div class="row justify-content-center mt-4">
 	<div class="col-sm-4">
 		<a class="btn btn-block btn-secondary" href="{{ route('food.index') }}">Go Back</a>

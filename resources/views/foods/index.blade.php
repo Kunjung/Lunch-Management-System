@@ -33,21 +33,42 @@
 
 		@foreach($foods as $food)
 
-				<div class="col-sm-4 border">
+				<div class="col-sm-3 border">
 				
 					<h4> {{ $food->name }} </h4>
 					<p> {{ $food->category }} </p>
-					
+					<p> Available Today {{ $food->is_active_today }} </p>
+
+					{{-- <a href="{{ route('food.edit', $food->id) }}" class="btn btn-sm btn-primary">Edit</a> --}}
+
 					{!! Form::open(['route' => ['food.destroy', $food->id], 'method' => 'DELETE']) !!}
-						<a href="{{ route('food.edit', $food->id) }}" class="btn btn-sm btn-primary">Edit</a>
-						<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+						<button type="submit" class="btn btn-sm btn-danger"><small>Delete</small></button>
 					{!! Form::close() !!}
+
+				</div>
+
+		@endforeach
+		</div>
+
+		<br>
+		<h2>Menu of the Day</h2>
+		{{-- Display all foods --}}
+		<div class="row justify-content-center mt-3">
+
+		@foreach($active_foods as $active_food)
+
+				<div class="col-sm-3 border">
+				
+					<h4> {{ $active_food->name }} </h4>
+					<p> {{ $active_food->category }} </p>
+					<p> Available Today {{ $active_food->is_active_today }} </p>
 
 				</div>
 			<hr>
 
 		@endforeach
 		</div>
+
 
 	@endif
 

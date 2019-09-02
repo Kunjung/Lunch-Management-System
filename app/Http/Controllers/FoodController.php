@@ -11,6 +11,7 @@ class FoodController extends Controller
     public function index()
     {
         $foods = Food::orderBy('category', 'asc')->paginate(30);
+        $active_foods = Food::where('is_active_today', 1)->get();
 
         $categories = [];
         foreach($foods as $food) {
@@ -20,7 +21,7 @@ class FoodController extends Controller
         }
         $categories = array_unique($categories);
 
-        return view('foods.index')->with('foods', $foods)->with('categories', $categories);
+        return view('foods.index')->with('foods', $foods)->with('categories', $categories)->with('active_foods', $active_foods);
     }
 
     public function create()
@@ -42,6 +43,7 @@ class FoodController extends Controller
         // Assign the food data from our request
         $food->name = $request->name;
         $food->category = $request->category;
+        $food->is_active_today = (boolean) $request->is_active_today;
         
         // Save the food
         $food->save();
@@ -79,6 +81,7 @@ class FoodController extends Controller
         // Assign the food data from our request
         $food->name = $request->name;
         $food->category = $request->category;
+        $food->is_active_today = (boolean) $request->is_active_today;
         
         // Save the food
         $food->save();
