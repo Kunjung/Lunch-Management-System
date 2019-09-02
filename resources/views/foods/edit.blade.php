@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Edit Order')
+@section('title', 'Edit Food')
 
 @section('content')
 
@@ -8,9 +8,9 @@
 		<div class="col-sm-12">
 			<h1>Edit Order</h1>
 			
-			{!! Form::model($order, ['route' => ['order.update', $order->id], 'method' => 'PUT']) !!}
+			{!! Form::model($food, ['route' => ['food.update', $food->id], 'method' => 'PUT']) !!}
 
-			@component('components.orderForm')
+			@component('components.foodForm')
 			@endcomponent
 
 			{!! Form::close() !!}

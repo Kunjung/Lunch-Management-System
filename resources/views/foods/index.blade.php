@@ -1,49 +1,61 @@
 @extends('layouts.main')
 
-@section('title', 'Food Name')
+@section('title', 'Food Menu')
 
 @section('content')
 
 
 	<div class="row justify-content-center mt-3">
 		<div class="col-sm-4">
-			<a class="btn btn-success" href="{{ route('food.create') }}">Create Order</a>
+			<a class="btn btn-success" href="{{ route('food.create') }}">Add New Food</a>
 		</div>  	
 	</div>
 
-	@if($orders->count() == 0)
-		<p class="lead">No orders made yet.</p>
+	@if($foods->count() == 0)
+		<p class="lead">No food item added to menu.</p>
 	@else
-		@foreach($orders as $order)
 
-			<div class="row">
-				<div class="col-sm-12">
+		{{-- Display All Categories --}}
+		<h2>Food Categories</h2>
+		<div class="row justify-content-center mt-3">
+		
+		@foreach($categories as $category)
+				<div class="col-sm-4 border">
+					<h4 font-color="red"> {{ $category }} </h4>
+				</div>
+		@endforeach
+		</div>
+
+		<br>
+		<h2>All Food Items</h2>
+		{{-- Display all foods --}}
+		<div class="row justify-content-center mt-3">
+
+		@foreach($foods as $food)
+
+				<div class="col-sm-4 border">
 				
-					<h3>
-						{{ $order->food_item }}
-						<small>{{ $order->created_at }}</small>
-					</h3>
-					<h5>For <small>{{ $order->employee }}</small></h5>
-					<h5>Date <small>{{ $order->due_date }}</small></h5>
+					<h4> {{ $food->name }} </h4>
+					<p> {{ $food->category }} </p>
 					
-
-					{!! Form::open(['route' => ['order.destroy', $order->id], 'method' => 'DELETE']) !!}
-						<a href="{{ route('order.edit', $order->id) }}" class="btn btn-sm btn-primary">Edit</a>
+					{!! Form::open(['route' => ['food.destroy', $food->id], 'method' => 'DELETE']) !!}
+						<a href="{{ route('food.edit', $food->id) }}" class="btn btn-sm btn-primary">Edit</a>
 						<button type="submit" class="btn btn-sm btn-danger">Delete</button>
 					{!! Form::close() !!}
 
 				</div>
-			</div>
 			<hr>
 
 		@endforeach
+		</div>
+
 	@endif
 
 		
 
 	<div class="row justify-content-center">
 		<div class="col-sm-6 text-center">
-			{{ $orders->links() }}
+			{{ $foods->links() }}
 		</div>
 	</div>
 
