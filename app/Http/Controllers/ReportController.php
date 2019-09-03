@@ -34,9 +34,11 @@ class ReportController extends Controller
         //
     }
 
-    public function show($id)
+    public function show($day_string)
     {
-        //
+        $day = date($day_string);
+        $menu = Menu::where('day', $day)->get();
+        return $menu;
     }
 
     public function edit($id)

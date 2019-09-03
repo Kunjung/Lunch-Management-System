@@ -16,16 +16,35 @@ class MenuController extends Controller
         return view('menus.index')->with('active_foods', $active_foods);
     }
 
+
+
     public function create()
     {
         $active_foods = Food::where('is_active_today', 1)->get();
+
+        return view('menus.create')->with('active_foods', $active_foods);
+
+    }
+
+
+
+    public function store(Request $request)
+    {
+        // Validate the Date
+        $this->validate($request, [
+            'day' => 'required|date',
+        ]);
+
+        $active_foods = Food::where('is_active_today', 1)->get();
         // The Current Date on which the Menu was created. Donot allow to change if the menu of the current date already exists in the database
-        $day_of_today = date("Y-m-d"); 
+        //
+
+        //$day_of_today = date("Y-m-d");
         
         // for every active food, add it's id to the new menu
         foreach ($active_foods as $active_food) {
             $menu = new Menu;
-            $menu->day = $day_of_today;
+            $menu->day = $request->day;
             $menu->food_id = $active_food->id;
             $menu->save();            
         }
@@ -34,13 +53,9 @@ class MenuController extends Controller
         
         // Return a Redirect
         return redirect()->route('menu.index');
-
     }
 
-    public function store(Request $request)
-    {
 
-    }
 
     public function show($id)
     {
