@@ -17,7 +17,8 @@ class CreateMenusTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->date('day');
-            
+            $table->integer('food_id')->unsigned();
+            $table->foreign('food_id')->references('id')->on('foods')->onDelete('cascade')->default(null);
         });
     }
 

@@ -19,3 +19,14 @@ Route::get('/', function () {
 
 
 Route::resource('menu', 'MenuController');
+
+Route::get('/setmenu', function () {
+    return redirect()->route('menu.index');
+});
+
+
+Route::resource('report', 'ReportController');
+
+Route::get('/showreport', function () {
+    return redirect()->route('report.index');
+});

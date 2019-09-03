@@ -6,9 +6,13 @@
 
 
 	<div class="row justify-content-center mt-3">
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<a class="btn btn-success" href="{{ route('food.create') }}">Add New Food</a>
-		</div>  	
+		</div> 
+
+		<div class="col-sm-3">
+			<a class="btn btn-primary" href="{{ route('menu.index') }}">Set Menu of the Day</a>
+		</div> 	
 	</div>
 
 	@if($foods->count() == 0)

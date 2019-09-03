@@ -8,6 +8,6 @@ class Menu extends Model
 {
 
     public function posts(){
-        return $this->hasMany('App\Food');
+        return $this->belongsTo('App\Food');
     }
 }

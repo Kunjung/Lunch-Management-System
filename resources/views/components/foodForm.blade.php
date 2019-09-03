@@ -7,7 +7,7 @@
 
 
 {{ Form::label('is_active_today', 'Available Today', ['class' => 'control-label']) }}
-{{ Form::checkbox('is_active_today', 'value', true) }}
+{{ Form::checkbox('is_active_today', 'value', false) }}
 
 
 <div class="row justify-content-center mt-4">

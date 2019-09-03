@@ -19,8 +19,6 @@ class CreateFoodsTable extends Migration
             $table->string('name');
             $table->string('category');
             $table->boolean('is_active_today')->default(0);
-            $table->integer('menu_id')->unsigned();
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade')->default(null);
         });
     }
 

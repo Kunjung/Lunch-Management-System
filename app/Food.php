@@ -11,6 +11,6 @@ class Food extends Model
     public $primaryKey = 'id';
 
     public function menu(){
-        return $this->belongsTo('App\Menu');
+        return $this->hasMany('App\Menu');
     }
 }
