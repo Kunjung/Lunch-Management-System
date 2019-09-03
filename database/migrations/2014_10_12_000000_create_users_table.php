@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->boolean('is_active')->default(false);
+            $table->string('type'); // This can be Employee, Kitchen Staff, or Admin
         });
     }
 

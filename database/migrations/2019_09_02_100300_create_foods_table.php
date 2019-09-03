@@ -18,7 +18,7 @@ class CreateFoodsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('category');
-            $table->boolean('is_active_today')->default(0);
+            $table->boolean('is_active_today')->default(false);
         });
     }
 
