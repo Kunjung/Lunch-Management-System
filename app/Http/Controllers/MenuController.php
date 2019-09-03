@@ -37,7 +37,14 @@ class MenuController extends Controller
 
         $active_foods = Food::where('is_active_today', 1)->get();
         // The Current Date on which the Menu was created. Donot allow to change if the menu of the current date already exists in the database
-        //
+        $menu = Menu::where('day', $request->day)->get();
+
+        if ($menu->count() > 0) {
+            // Meaning there already is a menu with today's day. Today's menu has already been set.
+            // Refuse setting new menu.
+            Session::flash('danger', "Menu has already been set for today. Can't make new menu");
+            return redirect()->route('menu.index');
+        } 
 
         //$day_of_today = date("Y-m-d");
         
