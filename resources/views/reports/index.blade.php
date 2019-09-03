@@ -8,24 +8,20 @@
 		
 	
 	<h4>Choose Date to view menu of that day</h4>
+	<ul>
 
 		@foreach($days as $day)
-			
 
-			<div class="row justify-content-center mt-3">
-
-				<div class="col-sm-3">
-					<h3> {{ $day }} </h3>
-				</div> 	
-
-				<div class="col-sm-3">
-					<a class="btn btn-success" href="{{ route('report.show', ['day' => $day]) }}">Show Menu</a>
-				</div>
-
-			</div>
-		
+			<li>
+				<a class="btn btn-secondary" href="{{ route('report.show', ['day' => $day]) }}">
+					Menu for the day: {{ $day }}
+				</a>
+			</li>
+			<br>
 
 		@endforeach
+		
 
+	</ul>
 	
 @endsection

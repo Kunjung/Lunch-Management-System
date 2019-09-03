@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Food;
 use App\Menu;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,15 @@ class ReportController extends Controller
     {
         $day = date($day_string);
         $menu = Menu::where('day', $day)->get();
-        return $menu;
+
+        $foods_in_menu = [];
+        foreach($menu as $item) {
+            $food_id = $item->food_id;
+            $food = Food::find($food_id);
+            array_push($foods_in_menu, $food);
+        }
+        
+        return view('reports.show')->with('foods_in_menu', $foods_in_menu)->with('day', $day);
     }
 
     public function edit($id)
