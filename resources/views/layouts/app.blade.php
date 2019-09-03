@@ -55,10 +55,19 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} Shazaam<span class="caret"></span>
                                 </a>
 
+                            
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    
+                                    {{-- Route Options for User of type "Employee" --}}
+                                    <a class="dropdown-item" href="{{ route('food.index') }}"> See Today's Menu </a>
+                                    <a class="dropdown-item" href="/order">Make a Lunch Order</a>
+                                    {{-- End of Employee Options --}}
+
+                                    {{-- Log Out DropDown --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -68,7 +77,10 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
                                 </div>
+
+
                             </li>
                         @endguest
                     </ul>
