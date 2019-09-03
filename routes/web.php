@@ -30,3 +30,10 @@ Route::resource('report', 'ReportController');
 Route::get('/showreport', function () {
     return redirect()->route('report.index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/welcome', 'ReportController@create');

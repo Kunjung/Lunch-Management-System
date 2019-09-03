@@ -27,7 +27,7 @@ class ReportController extends Controller
 
     public function create()
     {
-        //
+        return view('layouts.app');
     }
 
     public function store(Request $request)

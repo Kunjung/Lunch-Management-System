@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
             $table->boolean('is_active')->default(false);
-            $table->string('type'); // This can be Employee, Kitchen Staff, or Admin
+            $table->string('type')->default('Employee'); // This can be Employee, Kitchen Staff, or Admin
         });
     }
 
