@@ -7,21 +7,21 @@
 	<h2>Orders you've made so far for today</h2>
 	<br>
 
-	@if($orders->count() == 0)
+	@if(count($orders_info) == 0)
 		<p class="lead">Nothing ordered today.</p>
 	@else
 		{{-- Display all foods --}}
 		<div class="row mt-3">
 
-		@foreach($orders as $order)
+		@foreach($orders_info as $order_info)
 		
 				<div class="col-sm-3 border p-3 mb-2 bg-dark text-white">
-				
-					<h4> {{ $order->name }} </h4>
-					<p> Employee {{ $order->user_id }} </p>
-					<p> Food {{ $order->food_id }} </p>
-					<p> Taken? {{ $order->is_taken }} </p>
-					<p> Completed? {{ $order->is_completed }} </p>
+
+					<p>By: {{ $order_info[0] }} </p>
+                    <p>Food: {{ $order_info[1] }} </p>
+                    <p>Day: {{ $order_info[2] }} </p>
+                    <p>Taken?: {{ $order_info[3] }} </p>
+                    <p>Completed: {{ $order_info[4] }} </p>
 
 				</div>
 			<hr>

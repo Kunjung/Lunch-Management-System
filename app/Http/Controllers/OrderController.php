@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Food;
 use App\Order;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -26,7 +27,22 @@ class OrderController extends Controller
 
         $orders = Order::where('user_id', $user->id)->where('day', $day)->get();
 
-        return view('orders.index')->with('orders', $orders);
+        $orders_info = [];
+
+        foreach($orders as $order) {
+            $info = [];
+            $employee_name = User::find($order->user_id)->name;
+            $food_name = Food::find($order->food_id)->name;
+            $is_taken = $order->is_taken;
+            $day = $order->day;
+            $is_completed = $order->is_completed;
+
+            array_push($info, $employee_name, $food_name, $day, $is_taken, $is_completed);
+
+            array_push($orders_info, $info);
+        }
+
+        return view('orders.index')->with('orders_info', $orders_info);
 
     }
 
