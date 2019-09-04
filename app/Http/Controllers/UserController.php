@@ -98,7 +98,22 @@ class UserController extends Controller
     
     public function edit($id)
     {
-        //
+        // Specifically for the Kitchen Staff
+        // Normal Case: Called by Admin on the kitchen user $id to change the user - Kitchen Staff
+        $user = Auth::user();
+        // verify that it's from the admin first
+        if ($user->type != 'admin') {
+            return "Not Admin. You cannot edit this";
+        }
+
+        // confirmed that it is admin
+        $kitchen_staff = User::find($id); // Gets the kitchen staff
+
+        if (!$kitchen_staff || $kitchen_staff->type != 'kitchen') {
+            return "Kitchen Staff with not present";
+        }
+        // confirmed admin is changing it as well as the id given belongs to a kitchen staff
+        return view('users.editKitchenStaff')->with('kitchen_staff', $kitchen_staff);
     }
 
     
@@ -107,26 +122,44 @@ class UserController extends Controller
 
         // Normal Case: Called by Admin on the user $id to set the user to activate the new user - employee/staff
         $user = Auth::user();
-        if ($user->type == 'admin') {
-            $not_activated_user = User::find($id);
-            if (!$not_activated_user) {
-                return "User doesn't exist";
-            }
-            
-            // ever condition satisfied, so just set the is_active field to true
-            $not_activated_user->is_active = true;
-            $not_activated_user->save();
-            if ($not_activated_user->type == 'employee') {
-                Session::flash('success', 'Employee Activated successfully');
-            }
-            if ($not_activated_user->type == 'kitchen') {
-               Session::flash('success', 'Kitchen Staff Activated successfully');
-            }
-            return redirect()->route('home');
-
-        } else {
+        if ($user->type != 'admin') {
             return "You cannot do that.";
         }
+        
+        // Confirmed that it's admin that is using update    
+        $employee_or_kitchen = User::find($id);
+        if (!$employee_or_kitchen) {
+            return "User doesn't exist";
+        }
+        
+        // ever condition satisfied, so just set the is_active field to true
+        if ($employee_or_kitchen->type == 'employee') {
+            // found out its an employee, so set active
+            $employee_or_kitchen->is_active = true;
+            $employee_or_kitchen->save();        
+            Session::flash('success', 'Employee Activated successfully');
+        
+        }
+        if ($employee_or_kitchen->type == 'kitchen') {
+            // Second Case: Called by Admin on the Kitchen user to edit the kitchen account
+            // Condition: user->type == 'kitchen'
+            $this->validate($request, [
+                'name' => 'required|string|max:255|min:3',
+                'email' => 'required|email',
+                'password' => 'required|string|max:255|min:3'
+            ]);
+            $employee_or_kitchen->name = $request->name;
+            $employee_or_kitchen->email = $request->email;
+            $hashed_password = Hash::make($request->password);
+            $employee_or_kitchen->password = $hashed_password;
+
+            $employee_or_kitchen->save();
+
+            Session::flash('success', 'Kitchen Staff Activated successfully');
+        }
+        return redirect()->route('home');
+
+        
     }
 
     public function destroy($id)

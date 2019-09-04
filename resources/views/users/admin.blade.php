@@ -81,8 +81,9 @@
 
             <li>
                 <div>
-                
-                    <h4> {{ $kitchen_staff->name }} </h4>
+                    <h2> {{ $kitchen_staff->name }}
+                        <a href="{{ route('user.edit', $kitchen_staff->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                    </h2>
                     <p> {{ $kitchen_staff->email }} </p>
                     
                     @if($kitchen_staff->is_active)
@@ -93,9 +94,6 @@
 
                     @endif
 
-                    {!! Form::open(['route' => ['user.destroy', $kitchen_staff->id], 'method' => 'DELETE']) !!}
-                        <button type="submit" class="btn btn-sm btn-danger"><small>Delete</small></button>
-                    {!! Form::close() !!}
 
                 </div>
             </li>
