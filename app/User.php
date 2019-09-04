@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    protected $table = 'users';
+    // Primary Key
+    public $primaryKey = 'id';
+
+    public function orders(){
+        return $this->hasMany('App\Order');
+    }
+
+
 }
