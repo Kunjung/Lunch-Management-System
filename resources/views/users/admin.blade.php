@@ -84,7 +84,14 @@
                 
                     <h4> {{ $kitchen_staff->name }} </h4>
                     <p> {{ $kitchen_staff->email }} </p>
-                    <p> {{ $kitchen_staff->is_active }} </p>
+                    
+                    @if($kitchen_staff->is_active)
+                        <p> Active </p>
+
+                    @else
+                        <p> Not Activated </p>
+
+                    @endif
 
                 </div>
             </li>

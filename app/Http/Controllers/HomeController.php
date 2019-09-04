@@ -55,11 +55,13 @@ class HomeController extends Controller
         }
 
         else if ($type == 'employee') {
+            return "employee";
             return view('users.home')->with('user', $user);
 
         }
 
         else if ($type == 'kitchen') {
+            return "kitchen";
             return view('users.home')->with('user', $user);
         }
 
