@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,11 @@ class HomeController extends Controller
 
         else if ($type == 'employee') {
             // return "employee";
-            return view('users.employee')->with('user', $user);
+            $day = date('Y-m-d');
+    
+            $orders = Order::where('user_id', $user->id)->where('day', $day)->get();
+    
+            return view('users.employee')->with('user', $user)->with('orders', $orders);
 
         }
 

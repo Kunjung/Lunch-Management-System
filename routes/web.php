@@ -45,3 +45,6 @@ Route::get('/welcome', 'ReportController@create');
 
 
 Route::resource('user', 'UserController');
+
+
+Route::resource('order', 'OrderController');

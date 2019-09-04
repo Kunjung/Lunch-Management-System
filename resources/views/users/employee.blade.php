@@ -36,8 +36,16 @@
         
         <h2>Orders Made by Mr/Mrs. {{ $user->name }}</h2>
         <ul>
-            <li>1. dsfjsk</li>
-            <li>2. dksjflks</li>
+            @foreach($orders as $order)
+                <li>
+                    <p>By: {{ $order->user_id }} </p>
+                    <p>Food: {{ $order->food_id }} </p>
+                    <p>Date: {{ $order->day }} </p>
+                    <p>Taken?: {{ $order->is_taken }} </p>
+                    <p>Completed: {{ $order->is_completed }} </p>
+                    
+                </li>
+            @endforeach
 
         </ul>
 

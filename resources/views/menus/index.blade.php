@@ -4,7 +4,18 @@
 
 @section('content')
 		
-	<h2>Menu of the Day</h2>
+	<div class="row justify-content-center mt-3 p-3 border border-success rounded">
+		<div class="col-sm-6">
+			<h2>Menu of the Day</h2>
+		</div>
+		<div class="col-sm-3">
+			<a class="btn btn-success" href="{{ route('home') }}">Go Back</a>
+		</div>
+		<div class="col-sm-3">
+			<a class="btn btn-success" href="{{ route('order.index') }}">Show your Orders</a>
+		</div>
+	</div>
+
 	<br>
 
 	@if(count($foods) == 0)
@@ -20,6 +31,10 @@
 					<h4> {{ $food->name }} </h4>
 					<p> {{ $food->category }} </p>
 					<p> Available Today {{ $food->is_active_today }} </p>
+
+					{!! Form::open(['route' => ['order.edit', $food->id], 'method' => 'GET']) !!}
+						<button type="submit" class="btn btn-sm btn-danger">Order Now</button>
+					{!! Form::close() !!}
 
 				</div>
 			<hr>
