@@ -34,6 +34,8 @@ Route::get('/setmenu', function () {
 
 
 Route::resource('report', 'ReportController');
+Route::resource('report2', 'Report2Controller');
+
 
 Route::get('/showreport', function () {
     return redirect()->route('report.index');

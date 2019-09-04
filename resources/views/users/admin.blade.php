@@ -51,7 +51,7 @@
                 <div class="card-header">Report #2 - Orders Made</div>
 
                 <div class="card-body">
-                    <a class="btn btn-success" href="{{ route('report.index') }}">Show Order History</a>
+                    <a class="btn btn-success" href="{{ route('report2.index') }}">Show Order History</a>
                 </div>
             </div>
         </div>
