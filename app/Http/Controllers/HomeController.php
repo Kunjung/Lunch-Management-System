@@ -32,7 +32,7 @@ class HomeController extends Controller
         $is_active = $user->is_active;
 
         // If not activated, don't show anything to user & logout user
-        if ($is_active == 0) {
+        if ($is_active == false) {
             Auth::logout();
             Session::flash('danger', "Account Not activated yet. Please call admin to confirm.");
             return redirect('/login');
@@ -55,14 +55,14 @@ class HomeController extends Controller
         }
 
         else if ($type == 'employee') {
-            return "employee";
-            return view('users.home')->with('user', $user);
+            // return "employee";
+            return view('users.employee')->with('user', $user);
 
         }
 
         else if ($type == 'kitchen') {
-            return "kitchen";
-            return view('users.home')->with('user', $user);
+            // return "kitchen";
+            return view('users.kitchen')->with('user', $user);
         }
 
         else {

@@ -11,11 +11,19 @@
 |
 */
 
-Route::resource('food', 'FoodController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
 
 Route::get('/', function () {
-    return redirect()->route('user.index');
+    return redirect()->route('home');
 });
+
+
+Route::resource('food', 'FoodController');
 
 
 Route::resource('menu', 'MenuController');
@@ -30,10 +38,6 @@ Route::resource('report', 'ReportController');
 Route::get('/showreport', function () {
     return redirect()->route('report.index');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/welcome', 'ReportController@create');

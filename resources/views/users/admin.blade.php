@@ -93,6 +93,10 @@
 
                     @endif
 
+                    {!! Form::open(['route' => ['user.destroy', $kitchen_staff->id], 'method' => 'DELETE']) !!}
+                        <button type="submit" class="btn btn-sm btn-danger"><small>Delete</small></button>
+                    {!! Form::close() !!}
+
                 </div>
             </li>
 

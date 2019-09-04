@@ -63,9 +63,9 @@
 
                                     
                                     {{-- Route Options for User of type "Employee" --}}
-                                    <a class="dropdown-item" href="{{ route('food.index') }}"> See Today's Menu </a>
+                                    {{-- <a class="dropdown-item" href="{{ route('food.index') }}"> See Today's Menu </a>
                                     <a class="dropdown-item" href="/order">Make a Lunch Order</a>
-                                    {{-- End of Employee Options --}}
+                                     --}}{{-- End of Employee Options --}}
 
                                     {{-- Log Out DropDown --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
