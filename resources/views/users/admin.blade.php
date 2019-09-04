@@ -21,6 +21,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Add New Kitchen Staff</div>
+
+                <div class="card-body">
+                    <a class="btn btn-primary" href="{{ route('user.create') }}">Add New</a>
+                </div>
+            </div>
+        </div>
+
     </div>
     
     
@@ -101,7 +112,7 @@
                         <div class="col col-sm-4"> 
                             <h3>Name: {{ $not_activated_user->name }}</h3>
                         </div>
-                        <div class="col col-sm-8"> 
+                        <div class="col col-sm-8">
                         {!! Form::open(['route' => ['user.update', $not_activated_user->id], 'method' => 'PUT']) !!}
                             <h3><button type="submit" class="btn btn-sm btn-primary">Activate</button></h3>
                         {!! Form::close() !!}
