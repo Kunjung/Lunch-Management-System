@@ -5,7 +5,7 @@
 
 <div class="row justify-content-center mt-4">
 	<div class="col-sm-4">
-		<a class="btn btn-block btn-secondary" href="{{ route('menu.index') }}">Go Back</a>
+		<a class="btn btn-block btn-secondary" href="{{ route('food.index') }}">Go Back</a>
 	</div>
 
 	<div class="col-sm-4">

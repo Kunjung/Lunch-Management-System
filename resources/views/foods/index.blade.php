@@ -5,22 +5,27 @@
 @section('content')
 
 
-	<div class="row justify-content-center mt-3">
+	<div class="row justify-content-center mt-3 p-3 border border-success rounded">
+		<div class="col-sm-6">
+			<h2>The Kitchen</h2>
+		</div>
 		<div class="col-sm-3">
 			<a class="btn btn-success" href="{{ route('food.create') }}">Add New Food</a>
 		</div>
 
 		<div class="col-sm-3">
-			<a class="btn btn-primary" href="{{ route('menu.index') }}">Set Menu of the Day</a>
-		</div> 	
+			<a class="btn btn-primary" href="{{ route('menu.create') }}">Set Today's Menu</a>
+		</div>
 	</div>
+
+	<br>
 
 	@if($foods->count() == 0)
 		<p class="lead">No food item added to menu.</p>
 	@else
 
 		{{-- Display All Categories --}}
-		<h2>Food Categories</h2>
+		<h2>Current Food Categories</h2>
 		<div class="row justify-content-center mt-3">
 		
 		@foreach($categories as $category)
@@ -31,7 +36,7 @@
 		</div>
 
 		<br>
-		<h2>All Food Items</h2>
+		<h2>All Current Food Items</h2>
 		{{-- Display all foods --}}
 		<div class="row justify-content-center mt-3">
 
@@ -50,25 +55,6 @@
 					{!! Form::close() !!}
 
 				</div>
-
-		@endforeach
-		</div>
-
-		<br>
-		<h2>Possible Menu of the Day</h2>
-		{{-- Display all foods --}}
-		<div class="row justify-content-center mt-3">
-
-		@foreach($active_foods as $active_food)
-
-				<div class="col-sm-3 border">
-				
-					<h4> {{ $active_food->name }} </h4>
-					<p> {{ $active_food->category }} </p>
-					<p> Available Today {{ $active_food->is_active_today }} </p>
-
-				</div>
-			<hr>
 
 		@endforeach
 		</div>

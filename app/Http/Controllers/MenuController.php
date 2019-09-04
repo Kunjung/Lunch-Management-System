@@ -11,9 +11,24 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $active_foods = Food::where('is_active_today', 1)->get();
+        // $active_foods = Food::where('is_active_today', 1)->get();
 
-        return view('menus.index')->with('active_foods', $active_foods);
+        // return view('menus.index')->with('active_foods', $active_foods);
+
+        $day = date('Y-m-d');
+        $menu = Menu::where('day', $day)->get();
+        
+        $foods = [];
+        foreach($menu as $item) {
+            $food_id = $item->food_id;
+            $food = Food::find($food_id);
+            if ($food) {
+                array_push($foods, $food);
+            }
+        }
+        
+        // return $foods;
+        return view('menus.index')->with('foods', $foods)->with('day', $day);
     }
 
 
