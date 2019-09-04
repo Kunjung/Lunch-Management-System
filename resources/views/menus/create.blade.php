@@ -1,6 +1,4 @@
-@extends('layouts.main')
-
-@section('title', 'Confirm Menu')
+@extends('layouts.app')
 
 @section('content')
 

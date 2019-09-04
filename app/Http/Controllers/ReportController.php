@@ -5,11 +5,25 @@ namespace App\Http\Controllers;
 use App\Food;
 use App\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
+    // Reports can only be seen by logged in users
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
+        // Check to see that admin is making the request
+        $user = Auth::user();
+        if ($user->type != 'admin') {
+
+            return "You cannot do that";
+
+        }
         //Show the History of Menu for each day
         $menus = Menu::orderBy('day', 'asc')->get();
         
@@ -27,7 +41,7 @@ class ReportController extends Controller
 
     public function create()
     {
-        return view('layouts.app');
+        //
     }
 
     public function store(Request $request)
@@ -37,6 +51,13 @@ class ReportController extends Controller
 
     public function show($day_string)
     {
+        // Check to see that admin is making the request
+        $user = Auth::user();
+        if ($user->type != 'admin') {
+
+            return "You cannot do that";
+
+        }
         $day = date($day_string);
         $menu = Menu::where('day', $day)->get();
 

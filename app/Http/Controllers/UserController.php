@@ -155,7 +155,7 @@ class UserController extends Controller
 
             $employee_or_kitchen->save();
 
-            Session::flash('success', 'Kitchen Staff Activated successfully');
+            Session::flash('success', 'Updated Kitchen Staff successfully');
         }
         return redirect()->route('home');
 
@@ -164,6 +164,24 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        //
+        // Verify that the admin is making the destroy
+        $user = Auth::user();
+        if ($user->type != 'admin') {
+            return "You cannot do that.";
+        }
+        // Confirmed admin
+        $kitchen_staff = User::find($id);
+        
+        if (!$kitchen_staff) {
+            return "Kitchen Staff Not FOund";
+        }
+        // confirmed admin and that kitchen staff with $id exists
+        $kitchen_staff->delete();
+
+        Session::flash('success', 'Deleted Kitchen Staff Successfully');
+
+        return redirect()->route('home');
+
+
     }
 }

@@ -1,27 +1,27 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'Menu of the Day')
 
 @section('content')
 
-	<h2>History of Menus</h2>
+	<h2 class="p-3 mb-2 bg-info text-white">Report #1: History of Menus</h2>
 		
-	
-	<h4>Choose Date to view menu of that day</h4>
-	<ul>
+	<ol>
 
 		@foreach($days as $day)
 
 			<li>
-				<a class="btn btn-secondary" href="{{ route('report.show', ['day' => $day]) }}">
-					Menu for the day: {{ $day }}
+			<div class="p-3 mb-2 bg-gradient-light text-dark">
+				{{ $day }}
+				<a class="btn btn-primary" href="{{ route('report.show', ['day' => $day]) }}">
+					Show {{ $day }}
 				</a>
+			</div>
 			</li>
-			<br>
-
+			
 		@endforeach
 		
 
-	</ul>
+	</ol>
 	
 @endsection

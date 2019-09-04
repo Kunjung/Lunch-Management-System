@@ -6,7 +6,8 @@
 <div class="container">
     
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        {{-- Dashboard Card --}}
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-header">Admin Dashboard</div>
 
@@ -22,12 +23,35 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        {{-- Add New Kitchen Staff Card--}}
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-header">Add New Kitchen Staff</div>
 
                 <div class="card-body">
-                    <a class="btn btn-primary" href="{{ route('user.create') }}">Add New</a>
+                    <a class="btn btn-success" href="{{ route('user.create') }}">Add New</a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Report#1 - Menu History Card --}}
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Report #1 - Menu of the Day</div>
+
+                <div class="card-body">
+                    <a class="btn btn-success" href="{{ route('report.index') }}">Show Menu History</a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Report#2 - Order History Card --}}
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Report #2 - Orders Made</div>
+
+                <div class="card-body">
+                    <a class="btn btn-success" href="{{ route('report.index') }}">Show Order History</a>
                 </div>
             </div>
         </div>
@@ -82,7 +106,7 @@
             <li>
                 <div>
                     <h2> {{ $kitchen_staff->name }}
-                        <a href="{{ route('user.edit', $kitchen_staff->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{{ route('user.edit', $kitchen_staff->id) }}" class="btn btn-primary">Edit</a>
                     </h2>
                     <p> {{ $kitchen_staff->email }} </p>
                     

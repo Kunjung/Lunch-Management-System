@@ -16,7 +16,7 @@
 			{!! Form::close() !!}
 
 			{!! Form::open(['route' => ['user.destroy', $kitchen_staff->id], 'method' => 'DELETE']) !!}
-                        <button type="submit" class="btn btn-sm btn-danger"><small>Delete</small></button>
+                        <button type="submit" class="btn btn-sm btn-danger">Delete Account</button>
             {!! Form::close() !!}
 		</div>
 	</div>
