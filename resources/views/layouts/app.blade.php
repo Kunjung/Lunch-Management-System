@@ -89,7 +89,11 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container mt-3">
+                @include('partials._messages')
+
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

@@ -37,3 +37,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/welcome', 'ReportController@create');
+
+
+
+Route::resource('user', 'UserController');
