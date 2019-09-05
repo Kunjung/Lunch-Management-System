@@ -63,7 +63,7 @@ class NotificationEmailController extends Controller
 		});
 
 		Session::flash('success', "Email Sent Successfully");
-		return redirect()->route('home');
+		return redirect()->route('takeorder.index');
 
     }
 
