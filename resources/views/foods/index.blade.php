@@ -29,7 +29,7 @@
 		<div class="row justify-content-center mt-3">
 		
 		@foreach($categories as $category)
-				<div class="col-sm-4 border">
+				<div class="col-sm-2 border p-2">
 					<h4 font-color="red"> {{ $category }} </h4>
 				</div>
 		@endforeach
@@ -42,8 +42,12 @@
 
 		@foreach($foods as $food)
 
-				<div class="col-sm-3 border">
+				<div class="col-sm-3 border p-4">
 				
+					{!! Form::open(['route' => ['food.edit', $food->id], 'method' => 'GET']) !!}
+						<button type="submit" class="btn btn-sm btn-success">Toggle Availability</button>
+					{!! Form::close() !!}
+
 					<h4> {{ $food->name }} </h4>
 					<p> {{ $food->category }} </p>
 					<p> Available Today {{ $food->is_active_today }} </p>
@@ -53,6 +57,8 @@
 					{!! Form::open(['route' => ['food.destroy', $food->id], 'method' => 'DELETE']) !!}
 						<button type="submit" class="btn btn-sm btn-danger"><small>Delete</small></button>
 					{!! Form::close() !!}
+
+					
 
 				</div>
 

@@ -63,9 +63,15 @@ class FoodController extends Controller
     public function edit($id)
     {
         $food = Food::find($id);
-        $food->dueDateFormatting = false;
+        if ($food->is_active_today == true) {
+            $food->is_active_today = false;
+        } else if ($food->is_active_today == false) {
+            $food->is_active_today = true;
+        }
 
-        return view('foods.edit')->withfood($food);
+        $food->save();
+        Session::flash('success', "Food Availaibility Toggled");
+        return redirect()->route('food.index');
     }
 
     public function update(Request $request, $id)
