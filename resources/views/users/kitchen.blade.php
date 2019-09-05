@@ -43,6 +43,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4"> 
+            <div class="card">
+                <div class="card-header">Take some Orders</div>
+
+                <div class="card-body">
+                    <a class="btn btn-primary" href="{{ route('takeorder.index') }}">Show Order Todos</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

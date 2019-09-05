@@ -50,3 +50,5 @@ Route::resource('user', 'UserController');
 
 
 Route::resource('order', 'OrderController');
+
+Route::resource('takeorder', 'TakeOrderController');
