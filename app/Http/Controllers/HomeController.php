@@ -78,8 +78,10 @@ class HomeController extends Controller
                 $day = $order->day;
                 $is_taken = $order->is_taken;
                 $is_completed = $order->is_completed;
+                $date_time = $order->date_time;
+                $time = explode(' ', $date_time)[1];
 
-                array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed);
+                array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed, $time);
 
                 array_push($orders_info, $info);
             }

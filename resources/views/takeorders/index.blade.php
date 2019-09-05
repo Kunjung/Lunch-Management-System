@@ -20,6 +20,7 @@
 					<th> Day </th>
 					<th> Is Taken? </th>
 					<th> Is Completed? </th>
+					<th> Expected Time </th>
 					<th> Ready to Take the Order </th>
 				</tr>
 			@foreach($orders_todo_info as $order_info)
@@ -30,12 +31,13 @@
 					<td> {{ $order_info[3] }} </td>
 					<td> <b>{{ $order_info[4] }}</b> </td>
 					<td> <b>{{ $order_info[5] }}</b> </td>
+					<td> {{ $order_info[7] }} </td>
 					<td>
 						{!! Form::open(['route' => ['takeorder.edit', $order_info[6] ], 'method' => 'GET']) !!}
 							<button type="submit" class="btn btn-sm btn-warning">Ready to Take</button>
 						{!! Form::close() !!}
 
-					</td>					
+					</td>
 				</tr>
 			@endforeach				
 		</table>
@@ -56,6 +58,7 @@
 					<th> Day </th>
 					<th> Is Taken? </th>
 					<th> Is Completed? </th>
+					<th> Expected time </th>
 					<th> Complete the Order </th>
 				</tr>
 			@foreach($orders_taken_info as $order_info)
@@ -66,6 +69,7 @@
 					<td> {{ $order_info[3] }} </td>
 					<td> <b>{{ $order_info[4] }}</b> </td>
 					<td> <b>{{ $order_info[5] }}</b> </td>
+					<td> {{ $order_info[7] }} </td>
 					<td>
 						{!! Form::open(['route' => ['takeorder.edit', $order_info[6] ], 'method' => 'GET']) !!}
 							<button type="submit" class="btn btn-md btn-success">It's Done</button>

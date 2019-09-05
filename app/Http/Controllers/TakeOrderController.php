@@ -21,7 +21,7 @@ class TakeOrderController extends Controller
         }
 
         // 1st Info is Orders Todo - Red
-        $orders_todo = Order::where('is_taken', false)->where('is_completed', false)->where('day', $day)->get();
+        $orders_todo = Order::orderBy('date_time', 'asc')->where('is_taken', false)->where('is_completed', false)->where('day', $day)->get();
 
         $orders_todo_info = [];
 
@@ -35,14 +35,17 @@ class TakeOrderController extends Controller
             $is_completed = $order->is_completed;
 
             $order_id = $order->id;
+            $date_time = $order->date_time;
+            $time = explode(' ', $date_time)[1];
 
-            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed, $order_id);
+
+            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed, $order_id, $time);
 
             array_push($orders_todo_info, $info);
         }
 
         // 2nd Info is Orders taken and not completed - Yellow
-        $orders_taken = Order::where('is_taken', true)->where('is_completed', false)->where('day', $day)->get();
+        $orders_taken = Order::orderBy('date_time', 'asc')->where('is_taken', true)->where('is_completed', false)->where('day', $day)->get();
 
         $orders_taken_info = [];
         
@@ -56,14 +59,16 @@ class TakeOrderController extends Controller
             $is_completed = $order->is_completed;
 
             $order_id = $order->id;
+            $date_time = $order->date_time;
+            $time = explode(' ', $date_time)[1];
 
-            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed, $order_id);
+            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed, $order_id, $time);
 
             array_push($orders_taken_info, $info);
         }
 
         // 3rd Info is Orders taken and Completed - Green
-        $orders_completed = Order::where('is_taken', true)->where('is_completed', true)->where('day', $day)->get();
+        $orders_completed = Order::orderBy('date_time', 'asc')->where('is_taken', true)->where('is_completed', true)->where('day', $day)->get();
 
         $orders_completed_info = [];
         
