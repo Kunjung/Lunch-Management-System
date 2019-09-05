@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Food;
 use App\Order;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,20 +56,40 @@ class HomeController extends Controller
             return view('users.admin')->with('user', $user)->with('employees', $employees)->with('kitchen_staffs', $kitchen_staffs)->with('not_activated_users', $not_activated_users);
         }
 
-        else if ($type == 'employee') {
-            // return "employee";
-            $day = date('Y-m-d');
-    
-            $orders = Order::where('user_id', $user->id)->where('day', $day)->get();
-    
-            return view('users.employee')->with('user', $user)->with('orders', $orders);
-
-        }
-
         else if ($type == 'kitchen') {
             // return "kitchen";
             return view('users.kitchen')->with('user', $user);
         }
+
+        else if ($type == 'employee') {
+            // return "employee";
+            // Show all the current orders at the Dashboard for the employee
+            // The orders can have name, food name, category, day, takenStatus & completedStatus
+            $day = date('Y-m-d');
+    
+            $orders = Order::where('user_id', $user->id)->where('day', $day)->get();
+            $orders_info = [];
+
+            foreach($orders as $order) {
+                $info = [];
+                $employee_name = User::find($order->user_id)->name;
+                $food_name = Food::find($order->food_id)->name;
+                $food_category = Food::find($order->food_id)->category;
+                $day = $order->day;
+                $is_taken = $order->is_taken;
+                $is_completed = $order->is_completed;
+
+                array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed);
+
+                array_push($orders_info, $info);
+            }
+
+    
+            return view('users.employee')->with('user', $user)->with('orders_info', $orders_info);
+
+        }
+
+        
 
         else {
             return "Unknown Type of User";

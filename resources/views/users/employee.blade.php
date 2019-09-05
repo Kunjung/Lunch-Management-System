@@ -35,19 +35,27 @@
     <div>
         
         <h2>Orders Made by Mr/Mrs. {{ $user->name }}</h2>
-        <ul>
-            @foreach($orders as $order)
-                <li>
-                    <p>By: {{ $order->user_id }} </p>
-                    <p>Food: {{ $order->food_id }} </p>
-                    <p>Date: {{ $order->day }} </p>
-                    <p>Taken?: {{ $order->is_taken }} </p>
-                    <p>Completed: {{ $order->is_completed }} </p>
-                    
-                </li>
-            @endforeach
+        <table class="table table-bordered text-white bg-dark">
+            <tr>
+                <th> Made by Employee </th>
+                <th> Food Name </th>
+                <th> Food Category </th>
+                <th> Day </th>
+                <th> Is Taken? </th>
+                <th> Is Completed? </th>
+            </tr>
 
-        </ul>
+            @foreach($orders_info as $order_info)
+                <tr>
+                    <td> {{ $order_info[0] }} </td>
+                    <td> {{ $order_info[1] }} </td>
+                    <td> {{ $order_info[2] }} </td>
+                    <td> {{ $order_info[3] }} </td>
+                    <td> <b>{{ $order_info[4] }}</b> </td>
+                    <td> <b>{{ $order_info[5] }}</b> </td>
+                </tr>
+            @endforeach             
+        </table>
 
     </div>
 

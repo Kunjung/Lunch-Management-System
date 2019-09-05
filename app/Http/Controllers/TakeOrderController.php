@@ -7,6 +7,7 @@ use App\Order;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class TakeOrderController extends Controller
 {
@@ -19,7 +20,8 @@ class TakeOrderController extends Controller
             return "Not allowed for non-kitchen staff";
         }
 
-        $orders_todo = Order::where('is_taken', false)->where('is_completed', 'false')->where('day', $day)->get();
+        // 1st Info is Orders Todo - Red
+        $orders_todo = Order::where('is_taken', false)->where('is_completed', false)->where('day', $day)->get();
 
         $orders_todo_info = [];
 
@@ -32,12 +34,57 @@ class TakeOrderController extends Controller
             $day = $order->day;
             $is_completed = $order->is_completed;
 
-            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed);
+            $order_id = $order->id;
+
+            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed, $order_id);
 
             array_push($orders_todo_info, $info);
         }
 
-        return view('takeorders.index')->with('orders_todo_info', $orders_todo_info)->with('day', $day);
+        // 2nd Info is Orders taken and not completed - Yellow
+        $orders_taken = Order::where('is_taken', true)->where('is_completed', false)->where('day', $day)->get();
+
+        $orders_taken_info = [];
+        
+        foreach($orders_taken as $order) {
+            $info = [];
+            $employee_name = User::find($order->user_id)->name;
+            $food_name = Food::find($order->food_id)->name;
+            $food_category = Food::find($order->food_id)->category;
+            $is_taken = $order->is_taken;
+            $day = $order->day;
+            $is_completed = $order->is_completed;
+
+            $order_id = $order->id;
+
+            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed, $order_id);
+
+            array_push($orders_taken_info, $info);
+        }
+
+        // 3rd Info is Orders taken and Completed - Green
+        $orders_completed = Order::where('is_taken', true)->where('is_completed', true)->where('day', $day)->get();
+
+        $orders_completed_info = [];
+        
+        foreach($orders_completed as $order) {
+            $info = [];
+            $employee_name = User::find($order->user_id)->name;
+            $food_name = Food::find($order->food_id)->name;
+            $food_category = Food::find($order->food_id)->category;
+            $is_taken = $order->is_taken;
+            $day = $order->day;
+            $is_completed = $order->is_completed;
+
+            array_push($info, $employee_name, $food_name, $food_category, $day, $is_taken, $is_completed);
+
+            array_push($orders_completed_info, $info);
+        }
+
+        return view('takeorders.index')->with('orders_todo_info', $orders_todo_info)
+                                       ->with('orders_taken_info', $orders_taken_info)
+                                       ->with('orders_completed_info', $orders_completed_info)
+                                       ->with('day', $day);
 
     }
 
@@ -81,40 +128,37 @@ class TakeOrderController extends Controller
      */
     public function edit($id)
     {
-        $food_id = $id;
-        $food = Food::find($food_id);
-        if (!$food) {
-            Session::flash('danger', 'Food Item Not in Kitchen');
-            return redirect()->route('menu.index');
+        $order_id = $id;
+        $order = Order::find($order_id);
+        if (!$order) {
+            Session::flash('danger', 'Order Not here');
+            return redirect()->route('takeorder.index');
         }
         $user = Auth::user();
         //Check to make sure the user is an employee
-        if ($user->type !== 'employee') {
-            Session::flash('danger', 'Only Employees can make an order');
-            return redirect()->route('menu.index');
-        }
-        // Certain that food is available and user is employee
-        $day = date('Y-m-d');
-
-        $previous_orders = Order::where('day', $day)->where('user_id', $user->id)->get();
-
-        foreach($previous_orders as $previous_order) {
-            if ($previous_order->food_id == $food->id) {
-                Session::flash('danger', "Food already ordered! Can't order again");
-                return redirect()->route('menu.index');
-            }            
+        if ($user->type !== 'kitchen') {
+            Session::flash('danger', 'Only Kitchen Staff can take an order');
+            return redirect()->route('takeorder.index');
         }
 
+        // Condition that the order has been taken, and the kitchen staff is calling the edit function again.
+        // Must mean that the order has been completed by now.
+        // Future problems can be when there are many kitchen staff accounts and they might end up calling the same // order twice in the Take Order and that would make a bad behaviour that the order is now active.
+        if ($order->is_taken == true) {
 
-        // All conflicts handled. Now, Make a New order
-        $order = new Order;
-        $order->food_id = $food->id;
-        $order->day = $day;
-        $order->user_id = $user->id;
+            $order->is_completed = true;
+            $order->save();
 
+            Session::flash('success', 'Order has been completed. Message has already been sent to employee that their order is ready');
+            return redirect()->route('takeorder.index');
+        }
+
+
+        $order->is_taken = true;
         $order->save();
-        Session::flash('success', 'Order Made');
-        return redirect()->route('menu.index');
+
+        Session::flash('success', 'Order Has been taken. Chef time');
+        return redirect()->route('takeorder.index');
     }
 
     /**
