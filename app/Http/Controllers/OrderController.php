@@ -64,6 +64,50 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the data
+        $this->validate($request, [
+            'time' => 'required|date',
+            'food_id' => 'required',
+        ]);
+        
+
+        $food_id = $request->food_id;
+        
+        $food = Food::find($food_id);
+        if (!$food) {
+            Session::flash('danger', 'Food Item Not in Kitchen');
+            return redirect()->route('menu.index');
+        }
+        $user = Auth::user();
+        //Check to make sure the user is an employee
+        if ($user->type !== 'employee') {
+            Session::flash('danger', 'Only Employees can make an order');
+            return redirect()->route('menu.index');
+        }
+        // Certain that food is available and user is employee
+        $day = date('Y-m-d');
+
+        $previous_orders = Order::where('day', $day)->where('user_id', $user->id)->get();
+
+        foreach($previous_orders as $previous_order) {
+            if ($previous_order->food_id == $food->id) {
+                Session::flash('danger', "Food already ordered! Can't order again");
+                return redirect()->route('menu.index');
+            }            
+        }
+
+
+        // All conflicts handled. Now, Make a New order
+        $order = new Order;
+        $order->food_id = $food->id;
+        $order->day = $day;
+        $order->user_id = $user->id;
+
+        $order->time = $request->time;
+
+        $order->save();
+        Session::flash('success', 'Order Made');
+        return redirect()->route('menu.index');
 
     }
 

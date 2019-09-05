@@ -16,7 +16,6 @@ class NotificationEmailController extends Controller
     public function sendmail($order_id) {
     	
 
-    	return date("H:i:s");
     	$user = Auth::user();
     	if ($user->type != 'kitchen') {
     		return "Only Kitchen Staff can send email notification";
