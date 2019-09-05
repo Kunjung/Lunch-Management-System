@@ -21,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -89,6 +90,8 @@
         </nav>
 
         <main class="py-4">
+
+
             <div class="container mt-3">
                 @include('partials._messages')
 
@@ -96,5 +99,7 @@
             </div>
         </main>
     </div>
+
 </body>
+
 </html>

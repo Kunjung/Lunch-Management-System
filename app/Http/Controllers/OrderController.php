@@ -65,6 +65,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         // Validate the data
+        // return $request->time;
         $this->validate($request, [
             'time' => 'required|date',
             'food_id' => 'required',
@@ -103,7 +104,7 @@ class OrderController extends Controller
         $order->day = $day;
         $order->user_id = $user->id;
 
-        $order->time = $request->time;
+        $order->date_time = $request->time;
 
         $order->save();
         Session::flash('success', 'Order Made');

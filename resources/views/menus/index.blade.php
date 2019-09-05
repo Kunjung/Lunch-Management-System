@@ -35,8 +35,8 @@
 					{!! Form::open(['route' => 'order.store', 'method' => 'STORE']) !!}
 						
 						{{ Form::label('time', "Select Lunch Time", ['class' => 'control-label']) }}
-						{{ Form::date('time', \Carbon\Carbon::now(), ['class' => 'form-control']) }}
-
+						{{ Form::datetime('time', date("Y-m-d H:i:s"), ['class' => 'form-control']) }}
+						
 						{{ Form::hidden('food_id', $food->id, ['class' => 'form-control form-control-lg']) }}
 
 						<button type="submit" class="btn btn-sm btn-danger">Order Now</button>
