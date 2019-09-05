@@ -46,14 +46,24 @@
             </tr>
 
             @foreach($orders_info as $order_info)
-                <tr>
-                    <td> {{ $order_info[0] }} </td>
-                    <td> {{ $order_info[1] }} </td>
-                    <td> {{ $order_info[2] }} </td>
-                    <td> {{ $order_info[3] }} </td>
-                    <td> <b>{{ $order_info[4] }}</b> </td>
-                    <td> <b>{{ $order_info[5] }}</b> </td>
-                </tr>
+                
+                @if($order_info[5] == 1)
+                    <tr class="display-4 text-success">
+                @else
+                    @if($order_info[4] == 1)
+                        <tr class="text-warning">
+                    @else
+                        <tr class="font-italic text-danger">
+                    @endif
+                @endif
+                        <td> {{ $order_info[0] }} </td>
+                        <td> {{ $order_info[1] }} </td>
+                        <td> {{ $order_info[2] }} </td>
+                        <td> {{ $order_info[3] }} </td>
+                        <td> <b>{{ $order_info[4] }}</b> </td>
+                        <td> <b>{{ $order_info[5] }}</b> </td>
+                    </tr>
+
             @endforeach             
         </table>
 
