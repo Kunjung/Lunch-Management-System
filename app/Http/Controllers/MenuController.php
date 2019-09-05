@@ -57,8 +57,11 @@ class MenuController extends Controller
         if ($menu->count() > 0) {
             // Meaning there already is a menu with today's day. Today's menu has already been set.
             // Refuse setting new menu.
-            Session::flash('danger', "Menu has already been set for today. Can't make new menu");
-            return redirect()->route('menu.index');
+            // Session::flash('danger', "Menu has already been set for today. Can't make new menu");
+            // return redirect()->route('menu.index');
+
+            // Alternative Route #2: Delete all previous mensu of that day
+            Menu::where('day', $request->day)->delete();
         } 
 
         //$day_of_today = date("Y-m-d");

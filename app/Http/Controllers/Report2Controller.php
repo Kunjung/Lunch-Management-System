@@ -71,7 +71,10 @@ class Report2Controller extends Controller
             $is_taken = $order->is_taken;
             $is_completed = $order->is_completed;
 
-            array_push($info, $day, $food_name, $food_category, $is_taken, $is_completed);
+            $date_time = $order->date_time;
+            $time = explode(' ', $date_time)[1];
+
+            array_push($info, $day, $food_name, $food_category, $is_taken, $is_completed, $time);
 
             array_push($orders_info, $info);
         }

@@ -16,6 +16,7 @@
 				<th>Food Category </th>
 				<th>Is Taken? </th>
 				<th>Is Completed? </th>
+				<th>Lunch Time</th>
 			</tr>
 
 		@foreach($orders_info as $order_info)
@@ -26,7 +27,7 @@
 				<td> {{ $order_info[2] }} </td>
 				<td> {{ $order_info[3] }} </td>
 				<td> {{ $order_info[4] }} </td>
-				
+				<td> {{ $order_info[5] }} </td>
 			</tr>
 		@endforeach
 		
