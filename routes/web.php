@@ -52,3 +52,5 @@ Route::resource('user', 'UserController');
 Route::resource('order', 'OrderController');
 
 Route::resource('takeorder', 'TakeOrderController');
+
+Route::get('sendmail/{order_id}', 'NotificationEmailController@sendmail')->name('sendmail');

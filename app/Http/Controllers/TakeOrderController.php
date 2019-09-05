@@ -149,8 +149,11 @@ class TakeOrderController extends Controller
             $order->is_completed = true;
             $order->save();
 
-            Session::flash('success', 'Order has been completed. Message has already been sent to employee that their order is ready');
-            return redirect()->route('takeorder.index');
+            Session::flash('success', 'Order has been completed. Message Sent.');
+            return redirect()->route('sendmail', ['order_id' => $order_id]);
+
+            // Session::flash('success', 'Order has been completed. Message has already been sent to employee that their order is ready');
+            // return redirect()->route('takeorder.index');
         }
 
 

@@ -48,7 +48,7 @@
             @foreach($orders_info as $order_info)
                 
                 @if($order_info[5] == 1)
-                    <tr class="display-4 text-success">
+                    <tr class="text-success">
                 @else
                     @if($order_info[4] == 1)
                         <tr class="text-warning">
